@@ -1,0 +1,131 @@
+:root{
+  --bg: #fff6fb;
+  --text: #3a2b2b;
+  --muted: #6b5b5b;
+  /* Beige theme */
+  --envelope: #f0e4d7;
+  --flap: #e5d3bf;
+  --shadow: rgba(32, 22, 22, 0.12);
+  --accent: #ff6b9a;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji";
+  color:var(--text);
+  background: radial-gradient(1200px 800px at 30% -10%, #ffe9f3 0%, transparent 60%),
+              radial-gradient(1200px 800px at 90% 10%, #f1fff5 0%, transparent 60%),
+              var(--bg);
+}
+
+/* Cover page */
+.cover{min-height:100%; display:grid; place-items:center; padding:24px}
+.cover-card{
+  background:#ffffffcc;
+  backdrop-filter: blur(6px);
+  border: 1px solid #ffffff80;
+  border-radius: 18px;
+  padding: 48px 36px;
+  box-shadow: 0 20px 50px var(--shadow);
+  text-align:center;
+}
+.title{margin:0 0 8px; font-size:clamp(28px, 5vw, 44px)}
+.subtitle{margin:0 0 24px; color:var(--muted)}
+
+.btn{ 
+  display:inline-block; 
+  padding:12px 20px; 
+  border-radius:999px; 
+  border:1px solid transparent; 
+  cursor:pointer; 
+  text-decoration:none; 
+  font-weight:600;
+}
+.btn.primary{ background: var(--accent); color:white; box-shadow:0 10px 20px rgba(255,107,154,.35) }
+.btn.primary:hover{ filter:brightness(0.95) }
+.btn.link{ margin-top:20px; color:var(--muted)}
+
+/* Letter page */
+.letter-page{ min-height:100%; display:grid; place-items:center; gap:12px; padding:32px }
+.envelope-wrap{ display:grid; gap:14px; justify-items:center }
+
+.envelope{
+  position: relative;
+  width: min(86vw, 360px);
+  height: min(60vw, 260px);
+  max-height: 280px;
+  background: var(--envelope);
+  border-radius: 12px;
+  box-shadow: 0 18px 40px var(--shadow), inset 0 0 0 1px #0000000d;
+  overflow: hidden;
+  perspective: 1200px;
+}
+
+/* Back pocket for depth */
+.pocket{
+  position:absolute; inset:0; border-radius:12px; background:linear-gradient(#00000008,#00000000);
+}
+
+/* Top flap as triangle that rotates */
+.flap{
+  position: absolute;
+  left:0; right:0; top:0;
+  height:62%;
+  background: var(--flap);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  transform-origin: 50% 0%;
+  transform: rotateX(0deg);
+  transition: transform .8s cubic-bezier(.2,.8,.2,1);
+  will-change: transform;
+  box-shadow: 0 6px 12px var(--shadow);
+}
+
+/* The letter inside */
+.note{
+  position:absolute;
+  left:50%; width:86%;
+  top:70%;
+  transform: translateX(-50%);
+  background:#fff;
+  border-radius:10px;
+  box-shadow: none;
+  opacity: 0;
+  transition: top .8s cubic-bezier(.2,.8,.2,1), opacity .3s .2s;
+  overflow: hidden;
+}
+.note::after{ 
+  content:""; 
+  position:absolute; 
+  inset:0; 
+  border-radius:10px; 
+  box-shadow: inset 0 0 0 1px #00000010; 
+  opacity: 0; 
+  transition: opacity .3s .2s;
+}
+
+.note-content{ 
+  padding:18px 18px 22px; 
+  opacity: 0; 
+  transform: translateY(8px);
+  filter: blur(2px);
+  transition: opacity .4s .2s, transform .4s .2s, filter .4s .2s;
+}
+.note h2{ margin:4px 0 8px; font-size:20px }
+.note p{ margin:0; line-height:1.5 }
+
+/* Open state */
+.envelope.open .flap{ transform: rotateX(180deg) }
+.envelope.open .note{ top:8%; opacity: 1; box-shadow: 0 10px 30px var(--shadow) }
+.envelope.open .note::after{ opacity: 1 }
+.envelope.open .note-content{ 
+  opacity: 1; 
+  transform: none; 
+  filter: none;
+}
+
+/* Small screens */
+@media (max-width: 420px){
+  .note h2{ font-size:18px }
+}
