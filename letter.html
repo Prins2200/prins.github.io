@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tu carta</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <main class="letter-page">
+    <div class="envelope-wrap">
+      <div class="envelope" id="envelope" aria-label="Sobre con carta">
+        <div class="flap" aria-hidden="true"></div>
+        <div class="pocket" aria-hidden="true"></div>
+        <div class="note" role="document" aria-live="polite">
+          <div class="note-content">
+            <h2>Para ti</h2>
+            <p>
+              Estoy encantada haberte conocido. 🤍
+            </p>
+          </div>
+        </div>
+      </div>
+      <button id="openBtn" class="btn primary" aria-controls="envelope" aria-expanded="false">Abrir</button>
+    </div>
+    <a class="btn link" href="./index.html">Volver</a>
+  </main>
+  <script src="./letter.js"></script>
+</body>
+</html>
